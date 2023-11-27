@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main>
+    <div class="container-page">
+        <div class="sidebar">
+            <div class="profile">
+                <div class="profile-img"></div>
+                <img src="images/cat.png" alt="Image de profil">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="calendar/index.html"><img src="images/pictos/calendrier.png" alt="Icône calendrier"></a></li>
+                    <li><a href="#"><img src="images/pictos/parametres.png" alt="Icône paramètres"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="second-sidebar">
+            <div class="search-bar">
+                <input type="text" placeholder="Rechercher">
+            </div>
+        </div>
+        <div class="container-wrapper">
+            <button id="showFormButton" onclick="toggleSquareForm()">+ Ajouter...</button>
+            <div id="container">
+                <form id="squareForm">
+                    <label for="title">Titre:</label>
+                    <input type="text" id="title" name="title" required>
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+
+                    <label for="category">Couleur:</label>
+                    <select id="category" name="category">
+                        <option value="categorie1">Bleu</option>
+                        <option value="categorie2">Vert</option>
+                        <option value="categorie3">Rouge</option>
+                        <option value="categorie4">Jaune</option>
+                        <option value="categorie5">Violet</option>
+                        <option value="categorie6">Gris</option>
+                        <option value="categorie7">Orange</option>
+                        <option value="categorie8">Rose</option>
+                    </select>
+
+                    <button id="addSquareButton" onclick="addSquare()">Ajouter Carré</button>
+                </form>
+            </div>
+        </div>
+        <div>
+            <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="changerFondEcran(this)">
+            <label for="imageInput" class="circle-button bottom-right">+</label>
+        </div>
+        <script src="script.js"></script>
+    </div>
+</main>
+
+</body>
+</html>

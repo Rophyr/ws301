@@ -95,7 +95,8 @@ body {
 }
 
 .container-wrapper {
-  position: relative;
+  flex-grow: 1; /* Utilisation de flex-grow pour occuper l'espace restant */
+  padding: 20px; /* Ajout de marge pour l'espace autour de container-wrapper */
 }
 
 #showFormButton {

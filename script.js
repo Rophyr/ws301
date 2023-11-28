@@ -192,3 +192,16 @@ function convertirEnBase64(fichier, callback) {
 
   reader.readAsDataURL(fichier);
 }
+
+function afficherHeure() {
+  const maintenant = new Date();
+  const heures = maintenant.getHours();
+  const minutes = maintenant.getMinutes();
+
+  const heureFormattee = `${heures < 10 ? '0' + heures : heures}:${minutes < 10 ? '0' + minutes : minutes}`;
+
+  document.getElementById('heure').textContent = heureFormattee;
+}
+
+setInterval(afficherHeure, 1000); // Mettre à jour toutes les secondes
+afficherHeure(); // Afficher l'heure au chargement de la page

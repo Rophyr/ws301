@@ -138,7 +138,7 @@ body {
 .delete-icon {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 25px;
   width: 20px;
   height: 20px;
   background-color: #e74c3c;
@@ -148,6 +148,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .draggable {
@@ -160,35 +161,51 @@ body {
 }
 
 .square.categorie1 {
-  background-color: blue;
+  z-index: 20;
+  background: url('images/post-it/blue.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie2 {
-  background-color: rgb(0, 196, 0);
+  z-index: 20;
+  background: url('images/post-it/green.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie3 {
-  background-color: red;
+  z-index: 20;
+  background: url('images/post-it/red.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie4 {
-  background-color: yellow;
+  z-index: 20;
+  background: url('images/post-it/yellow.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie5 {
-  background-color: purple;
+  z-index: 20;
+  background: url('images/post-it/purple.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie6 {
-  background-color: rgb(104, 104, 104);
+  z-index: 20;
+  background: url('images/post-it/gray.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie7 {
-  background-color: orange;
+  z-index: 20;
+  background: url('images/post-it/orange.png') center center no-repeat;
+  background-size: cover;
 }
 
 .square.categorie8 {
-  background-color: pink;
+  z-index: 20;
+  background: url('images/post-it/pink.png') center center no-repeat;
+  background-size: cover;
 }
 
 .circle-button {

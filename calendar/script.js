@@ -1,118 +1,94 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const postItContainer = document.getElementById('post-it-container');
-  const postItContentInput = document.getElementById('post-it-content');
-  const postItDayInput = document.getElementById('post-it-day');
-  const postItHourInput = document.getElementById('post-it-hour');
+document.addEventListener("DOMContentLoaded", function () {
+  const addPostItButton = document.getElementById("add-post-it-button");
 
-  function ajouterPostIt() {
-    // Charger les événements du localStorage
-    loadEventsFromLocalStorage();
+  // Load existing post-its from local storage
+  loadPostIts();
 
-    const postItContent = postItContentInput.value;
-    const postItDay = postItDayInput.value;
-    const postItHour = postItHourInput.value;
+  addPostItButton.addEventListener("click", function () {
+    const postItContent = document.getElementById("post-it-content").value;
+    const postItDay = document.getElementById("post-it-day").value;
+    const postItHour = document.getElementById("post-it-hour").value;
 
     if (postItContent && postItDay && postItHour) {
-      const postItDiv = document.createElement('div');
-      postItDiv.classList.add('post-it');
-      postItDiv.innerHTML = `<span>${postItContent}</span><br><span>${postItHour}</span>`;
-      postItDiv.draggable = true;
-      postItDiv.addEventListener('dragstart', (e) => onDragStart(e));
+      createPostIt(postItContent, postItDay, postItHour);
+      clearForm();
+    } else {
+      alert("Veuillez remplir tous les champs.");
+    }
+  });
 
-      const dayContainer = document.querySelector(`#${postItDay}`);
-      dayContainer.appendChild(postItDiv);
+  function createPostIt(content, day, hour) {
+    const postItKey = generatePostItKey(content, day, hour);
+    const postIt = document.createElement("div");
+    postIt.classList.add("post-it");
+    postIt.setAttribute("data-key", postItKey);
 
-      // Sauvegarder dans le localStorage
-      saveEventToLocalStorage(postItContent, postItDay, postItHour);
+    const closeBtn = document.createElement("span");
+    closeBtn.classList.add("close-btn");
+    closeBtn.innerHTML = "&times;";
+    closeBtn.addEventListener("click", function () {
+      const postItContainer = document.getElementById(`${day}-container`);
+      postItContainer.removeChild(postIt);
+      removePostItFromLocalStorage(postItKey);
+    });
 
-      // Réinitialiser les champs du formulaire
-      postItContentInput.value = '';
-      postItDayInput.value = 'lundi'; // Remettre le jour par défaut
-      postItHourInput.value = '';
+    postIt.innerHTML = `<strong>${day} - ${hour}</strong><br>${content}`;
+    postIt.appendChild(closeBtn);
+
+    // Append the post-it to the appropriate day container
+    const postItContainer = document.getElementById(`${day}-container`);
+    postItContainer.appendChild(postIt);
+
+    // Save the new post-it key to local storage
+    savePostItKeyToLocalStorage(postItKey);
+    // Save the new post-it data to local storage
+    savePostItToLocalStorage(postItKey, { content, day, hour });
+  }
+
+  function clearForm() {
+    document.getElementById("post-it-content").value = "";
+    document.getElementById("post-it-day").value = "lundi";
+    document.getElementById("post-it-hour").value = "";
+  }
+
+  function savePostItToLocalStorage(key, data) {
+    const storedPostIts = JSON.parse(localStorage.getItem("postIts")) || {};
+    storedPostIts[key] = data;
+    localStorage.setItem("postIts", JSON.stringify(storedPostIts));
+  }
+
+  function savePostItKeyToLocalStorage(key) {
+    const storedPostItKeys = JSON.parse(localStorage.getItem("postItKeys")) || [];
+    if (!storedPostItKeys.includes(key)) {
+      storedPostItKeys.push(key);
+      localStorage.setItem("postItKeys", JSON.stringify(storedPostItKeys));
     }
   }
 
-  function onDragStart(e) {
-    e.dataTransfer.setData('text/plain', ''); // nécessaire pour le glisser-déposer
-  }
-
-  function saveEventToLocalStorage(content, day, hour) {
-    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
-    const newEvent = {
-      content: content,
-      day: day,
-      hour: hour
-    };
-
-    existingEvents.push(newEvent);
-    localStorage.setItem('events', JSON.stringify(existingEvents));
-  }
-
-  function loadEventsFromLocalStorage() {
-    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
-    
-    // Effacer tous les post-its existants
-    postItContainer.innerHTML = '';
-
-    existingEvents.forEach((event) => {
-        const postItDiv = document.createElement('div');
-        postItDiv.classList.add('post-it');
-        postItDiv.innerHTML = `<span>${event.content}</span><br><span>${event.hour}</span>`;
-        postItDiv.draggable = true;
-        postItDiv.addEventListener('dragstart', (e) => onDragStart(e));
-
-        const dayContainer = document.querySelector(`#${event.day}`);
-        dayContainer.appendChild(postItDiv);
+  function loadPostIts() {
+    const storedPostItKeys = JSON.parse(localStorage.getItem("postItKeys")) || [];
+    storedPostItKeys.forEach(key => {
+      const data = JSON.parse(localStorage.getItem("postIts"))[key];
+      createPostIt(data.content, data.day, data.hour);
     });
   }
 
+  function removePostItFromLocalStorage(postItKey) {
+    const storedPostIts = JSON.parse(localStorage.getItem("postIts")) || {};
+    delete storedPostIts[postItKey];
+    localStorage.setItem("postIts", JSON.stringify(storedPostIts));
 
-  function onContextMenu(e) {
-    e.preventDefault();
-
-    const clickedElement = e.target;
-    const isPostIt = clickedElement.classList.contains('post-it');
-
-    if (isPostIt) {
-      // Demander confirmation avant de supprimer
-      const shouldDelete = confirm('Voulez-vous vraiment supprimer ce Post-it?');
-
-      if (shouldDelete) {
-        clickedElement.remove();
-        removeEventFromLocalStorage(clickedElement);
-      }
+    // Remove the post-it key from the array in local storage
+    const storedPostItKeys = JSON.parse(localStorage.getItem("postItKeys")) || [];
+    const indexToRemove = storedPostItKeys.indexOf(postItKey);
+    if (indexToRemove !== -1) {
+      storedPostItKeys.splice(indexToRemove, 1);
+      localStorage.setItem("postItKeys", JSON.stringify(storedPostItKeys));
     }
   }
 
-  const calendarContainer = document.getElementById('calendar');
-  calendarContainer.addEventListener('contextmenu', onContextMenu);
-
-  function removeEventFromLocalStorage(element) {
-    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
-    const titleToRemove = element.querySelector('span').textContent;
-    
-    // Vérifier si l'élément a un parent avant d'accéder à son jour
-    const dayContainer = element.parentNode;
-    if (dayContainer) {
-        const dayToRemove = dayContainer.id;
-        const hourToRemove = element.querySelector('span:nth-child(2)').textContent;
-
-        const updatedEvents = existingEvents.filter(event =>
-            !(event.content === titleToRemove && event.day === dayToRemove && event.hour === hourToRemove)
-        );
-
-        localStorage.setItem('events', JSON.stringify(updatedEvents));
-
-        // Charger les événements du localStorage après la suppression
-        loadEventsFromLocalStorage();
-    }
+  function generatePostItKey(content, day, hour) {
+    // Use a simple deterministic key generation based on content, day, and hour
+    return `${content}-${day}-${hour}`;
   }
-
-
-  // Charger les événements du localStorage lors du chargement de la page
-  loadEventsFromLocalStorage();
-
-  // Ajouter l'événement de sauvegarde lors de l'ajout d'un post-it
-  const addButton = document.querySelector('button');
-  addButton.addEventListener('click', ajouterPostIt);
 });

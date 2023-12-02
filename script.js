@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        const x = e.clientX - offsetX - 410;
+        const x = e.clientX - offsetX;
         const y = e.clientY - offsetY;
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;

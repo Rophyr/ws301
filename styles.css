@@ -102,9 +102,9 @@ body {
 
 .container-wrapper {
   position: absolute;
-  top: 0;
-  left: 420px;
-  width: 100vh;
+  top: 20px;
+  right: 10px;
+  width: 200px;
   display: flex;  
   /* flex-grow: 1; Utilisation de flex-grow pour occuper l'espace restant */
   padding: 20px; /* Ajout de marge pour l'espace autour de container-wrapper */
@@ -243,4 +243,27 @@ body {
 .bottom-right {
   bottom: 20px;
   right: 20px;
+}
+
+#horloge{
+  position: absolute;
+  bottom: 30px;
+  left: 480px;
+  width: 250px;
+  height: 100px;
+  opacity: 0.9;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 0 0 10px;
+}
+
+.greeting-text{
+  left: 420px;
+  font-size: 25px;
+}
+
+#heure{
+  font-size: 100px;
 }

@@ -10,9 +10,6 @@ body {
 }
 
 #calendar {
-  position: absolute;
-  top: 100px;
-  left: 620px;
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
@@ -82,3 +79,14 @@ button:hover {
   background-color: #27ae60;
 }
 
+.close-btn {
+  cursor: pointer;
+  color: #fff; /* Couleur du texte */
+  font-size: 20px;
+  top: 5px;
+  right: 5px;
+}
+
+.close-btn:hover {
+  color: #ff0000; /* Couleur du texte au survol */
+}

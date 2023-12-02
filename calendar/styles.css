@@ -10,7 +10,9 @@ body {
 }
 
 #calendar {
-  right: 0;
+  position: absolute;
+  top: 150px;
+  left: 620px; 
   background-color: white;
   border-radius: 10px;
   overflow: hidden;

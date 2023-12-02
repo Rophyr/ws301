@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const addPostItButton = document.getElementById("add-post-it-button");
 
-  // Load existing post-its from local storage
   loadPostIts();
 
   addPostItButton.addEventListener("click", function () {
@@ -35,13 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
     postIt.innerHTML = `<strong>${day} - ${hour}</strong><br>${content}`;
     postIt.appendChild(closeBtn);
 
-    // Append the post-it to the appropriate day container
     const postItContainer = document.getElementById(`${day}-container`);
     postItContainer.appendChild(postIt);
 
-    // Save the new post-it key to local storage
     savePostItKeyToLocalStorage(postItKey);
-    // Save the new post-it data to local storage
     savePostItToLocalStorage(postItKey, { content, day, hour });
   }
 
@@ -78,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     delete storedPostIts[postItKey];
     localStorage.setItem("postIts", JSON.stringify(storedPostIts));
 
-    // Remove the post-it key from the array in local storage
     const storedPostItKeys = JSON.parse(localStorage.getItem("postItKeys")) || [];
     const indexToRemove = storedPostItKeys.indexOf(postItKey);
     if (indexToRemove !== -1) {
@@ -88,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function generatePostItKey(content, day, hour) {
-    // Use a simple deterministic key generation based on content, day, and hour
     return `${content}-${day}-${hour}`;
   }
 });

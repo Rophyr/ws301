@@ -102,6 +102,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  const imageBase64 = localStorage.getItem('backgroundImage');
+  if (imageBase64) {
+    document.body.style.backgroundImage = `url('${imageBase64}')`;
+  }
+
   const searchBar = document.querySelector(".search-bar input");
   searchBar.addEventListener("input", function () {
     const searchQuery = searchBar.value.trim();

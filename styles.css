@@ -136,7 +136,7 @@ body {
 }
 
 #squareForm{
-  display: flex;
+  display: none;
   flex-direction: column;
   padding: 30px;
   width: 300px;

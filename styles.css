@@ -267,3 +267,11 @@ body {
 #heure{
   font-size: 100px;
 }
+
+.search-result{
+  background-color:#ffffffe7;
+  color:#000000;
+  margin: 1rem;
+  border-radius: 5px;
+  padding: 0.2rem;
+}

@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadPostIts();
 
+
+
   addPostItButton.addEventListener("click", function () {
     const postItContent = document.getElementById("post-it-content").value;
     const postItDay = document.getElementById("post-it-day").value;
@@ -85,4 +87,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function generatePostItKey(content, day, hour) {
     return `${content}-${day}-${hour}`;
   }
+
+  function searchPostIts(query) {
+    const postItContainer = document.getElementById("post-it-container");
+    const postIts = postItContainer.querySelectorAll(".post-it");
+
+    postIts.forEach((postIt) => {
+      const content = postIt.textContent.toLowerCase();
+      if (content.includes(query.toLowerCase())) {
+        postIt.style.display = "block";
+      } else {
+        postIt.style.display = "none";
+      }
+    });
+  }
+
+  const searchBar = document.querySelector(".search-bar input");
+  searchBar.addEventListener("input", function () {
+    const searchQuery = searchBar.value.trim();
+    searchPostIts(searchQuery);
+  });
 });

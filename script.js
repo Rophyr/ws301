@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
+        const x = e.clientX - offsetX - 1710;
+        const y = e.clientY - offsetY -20;
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;
       }
@@ -171,11 +171,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const addSquareButton = document.querySelector('#addSquareButton');
   const showFormButton = document.querySelector('#showFormButton');
   const imageInput = document.getElementById('imageInput');
+  const searchInput = document.getElementById('searchInput');
 
   showFormButton.addEventListener('click', toggleSquareForm);
   addSquareButton.addEventListener('click', addSquare);
   imageInput.addEventListener('change', function () {
     changerFondEcran(this);
+  });
+
+  searchInput.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+      performSearchOnCalendarPage();
+    }
   });
 
   loadSquaresFromLocalStorage();
@@ -193,3 +200,54 @@ function afficherHeure() {
 
 setInterval(afficherHeure, 1000);
 afficherHeure();
+
+function performSearchOnCalendarPage() {
+  // Obtenir le terme de recherche
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+  // Charger les post-it depuis le stockage local
+  const storedPostItKeys = JSON.parse(localStorage.getItem('postItKeys')) || [];
+  const results = [];
+
+  // Rechercher les post-it qui contiennent le terme de recherche
+  storedPostItKeys.forEach(key => {
+    const data = JSON.parse(localStorage.getItem('postIts'))[key];
+    if (data.content.toLowerCase().includes(searchTerm)) {
+      results.push(data);
+    }
+  });
+
+  // Afficher les résultats
+  displaySearchResults(results);
+}
+
+function displaySearchResults(results) {
+  const searchResultsContainer = document.getElementById('search-results-container');
+  searchResultsContainer.innerHTML = ''; // Efface les résultats précédents
+
+  if (results.length === 0) {
+    const noResultsMessage = document.createElement('p');
+    noResultsMessage.textContent = 'Aucun résultat trouvé.';
+    searchResultsContainer.appendChild(noResultsMessage);
+  } else {
+    results.forEach(result => {
+      const resultDiv = document.createElement('div');
+      resultDiv.classList.add('search-result');
+
+      const contentParagraph = document.createElement('p');
+      contentParagraph.textContent = result.content;
+
+      const dayParagraph = document.createElement('p');
+      dayParagraph.textContent = result.day;
+
+      const hourParagraph = document.createElement('p');
+      hourParagraph.textContent = result.hour;
+
+      resultDiv.appendChild(contentParagraph);
+      resultDiv.appendChild(dayParagraph);
+      resultDiv.appendChild(hourParagraph);
+
+      searchResultsContainer.appendChild(resultDiv);
+    });
+  }
+}

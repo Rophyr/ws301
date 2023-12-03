@@ -11,8 +11,9 @@ body {
 
 #calendar {
   position: absolute;
-  top: 150px;
-  left: 620px; 
+  width: 1000px;
+  top: 70px;
+  left: 480px; 
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
@@ -33,6 +34,7 @@ body {
 }
 
 #post-it-container {
+  height: 200px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;

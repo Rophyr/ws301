@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function toggleSquareForm() {
     const squareForm = document.getElementById('squareForm');
-    squareForm.style.display = (squareForm.style.display === 'none' || squareForm.style.display === '') ? 'block' : 'none';
+    squareForm.style.display = (squareForm.style.display === 'none' || squareForm.style.display === '') ? 'flex' : 'none';
   }
 
   function addSquare() {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
-        const x = e.clientX - offsetX - 1710;
+        const x = e.clientX - offsetX - 1650;
         const y = e.clientY - offsetY -20;
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;

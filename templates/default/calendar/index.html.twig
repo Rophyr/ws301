@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/symfony/public/build/main-styles.css">
+  <link rel="stylesheet" href="/symfony/public/build/calendar-styles.css">
+  <title>Calendrier de la Semaine</title>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="profile">
+      <div class="profile-img"></div>
+      <img src="../images/cat.png" alt="Image de profil">
+    </div>
+    <div class="menu">
+      <ul>
+        <li><a href="../index.html.twig"><img src="../images/pictos/accueil.png" alt="Icône calendrier"></a></li>
+        <li><a href="#"><img src="../images/pictos/parametres.png" alt="Icône paramètres"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="second-sidebar">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher">
+    </div>
+  </div>
+
+  <div id="calendar">
+    <div id="day-container">
+      <!-- Jours de la semaine -->
+      <div class="day" id="lundi">Lundi</div>
+      <div class="day" id="mardi">Mardi</div>
+      <div class="day" id="mercredi">Mercredi</div>
+      <div class="day" id="jeudi">Jeudi</div>
+      <div class="day" id="vendredi">Vendredi</div>
+      <div class="day" id="samedi">Samedi</div>
+      <div class="day" id="dimanche">Dimanche</div>
+    </div>
+    <div id="post-it-container">
+      <!-- Container for each day -->
+      <div class="post-it-day" id="lundi-container"></div>
+      <div class="post-it-day" id="mardi-container"></div>
+      <div class="post-it-day" id="mercredi-container"></div>
+      <div class="post-it-day" id="jeudi-container"></div>
+      <div class="post-it-day" id="vendredi-container"></div>
+      <div class="post-it-day" id="samedi-container"></div>
+      <div class="post-it-day" id="dimanche-container"></div>
+    </div>
+    <div id="add-post-it-form">
+      <label for="post-it-content">Contenu du Post-it:</label>
+      <textarea id="post-it-content" required></textarea>
+
+      <label for="post-it-day">Jour:</label>
+      <select id="post-it-day" required>
+        <option value="lundi">Lundi</option>
+        <option value="mardi">Mardi</option>
+        <option value="mercredi">Mercredi</option>
+        <option value="jeudi">Jeudi</option>
+        <option value="vendredi">Vendredi</option>
+        <option value="samedi">Samedi</option>
+        <option value="dimanche">Dimanche</option>
+      </select>
+
+      <label for="post-it-hour">Heure:</label>
+      <input type="time" id="post-it-hour" required>
+
+      <button type="button" id="add-post-it-button">Ajouter Post-it</button>
+    </div>
+  </div>
+
+  <script src="/symfony/public/build/calendar.bundle.js"></script>
+
+</body>
+
+</html>
